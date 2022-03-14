@@ -1,4 +1,51 @@
-taskKey="com.codegym.games.minesweeper.part01"\n\nMinesweeper (Part 1/16)
+taskKey="com.codegym.games.minesweeper.part04"\n\nMinesweeper (Part 4/16)
+
+We need to store the state of the playing field&#39;s cells somewhere.
+To do this, create a matrix (two-dimensional array) with the dimensions of the playing field.
+Populate the matrix with GameObject objects using this formula:
+gameField[y][x] = new GameObject(x, y);
+
+Now let&#39;s display all the cells on the screen.
+The Game class&#39;s setCellColor(int, int, Color) method, whose parameters are the cell coordinates and color, will help us accomplish this.
+Call it for each cell and pass the cell coordinates and any color (for example, Color.ORANGE) as arguments.
+We suggest putting the logic to draw the matrix into a separate createGame() method,
+which we then call from the initialize method(). Run the program and see what happens.
+
+Hint: use loops to call the setCellColor(int, int, Color) method for each cell of the matrix.
+
+
+Требования:
+1.	The MinesweeperGame class must have a private GameObject[][] gameField matrix (two-dimensional array) whose dimensions are SIDExSIDE.
+2.	The MinesweeperGame class must have a private void createGame() method.
+3.	In the createGame method(), you need to populate each cell of the gameField array with a new GameObject object with corresponding x and y coordinates.
+4.	In the createGame() method, for each cell in the gameField array, you need to call the setCellColor(int, int, Color) method with the following arguments: x and y coordinates, as well as any color (for example, Color.ORANGE).
+5.	The createGame() method must be called in the initialize() method.
+
+
+Minesweeper (Part 4/16)
+
+Because our game will use game objects (cells), we&#39;ll create a separate GameObject class
+to describe them. Let&#39;s think about what the game object needs. Naturally, we need
+its x and y coordinates on the playing field. And how can we get by without a constructor? After you do everything,
+don&#39;t forget to run the program and look at the result.
+
+
+
+Minesweeper (Part 4/16)
+
+Our playing field is kind of small, don&#39;t you think? It should be 9x9 cells:
+1) There is a setScreenSize(int, int) method to set the size of the field
+2) This method takes width and height arguments (the number of cells wide and high)
+3) the dimensions of the field will be used frequently, so it&#39;s convenient to put them in a constant named SIDE
+4) the result should be a call like this: setScreenSize(SIDE, SIDE);
+5) this call should occur in the initialize method()
+6) this means that the initialize() method must be declared in the MinesweeperGame class
+
+Check the results of your work &mdash; run the program.
+
+
+
+Minesweeper (Part 4/16)
 
 Let&#39;s write the entertaining Minesweeper game.
 Rules of the game:
@@ -21,10 +68,5 @@ the MinesweeperGame class must include the following import statement:
 import com.codegym.engine.cell.*;
 If you did everything right, you will see the playing field when you start the application.
 
-
-Требования:
-1.	There must be a public MinesweeperGame class.
-2.	The MinesweeperGame class must inherit the Game class.
-3.	The MinesweeperGame class must have a statement that imports the entire contents of the com.codegym.engine.cell package.
 
 
