@@ -3,5 +3,9 @@ package com.codegym.games.minesweeper;
 import com.codegym.engine.cell.*;
 
 public class MinesweeperGame extends Game {
-//test
+    private static final int SIDE = 9;
+
+    public void initialize() {
+        setScreenSize(SIDE, SIDE);
+    }
 }
