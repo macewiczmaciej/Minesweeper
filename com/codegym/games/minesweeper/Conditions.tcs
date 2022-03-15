@@ -1,4 +1,29 @@
-taskKey="com.codegym.games.minesweeper.part06"\n\nMinesweeper (Part 6/16)
+taskKey="com.codegym.games.minesweeper.part07"\n\nMinesweeper (Part 7/16)
+
+At this stage, we&#39;ll deal with the logic to reveal cells. Let&#39;s create a corresponding method
+and a variable that will store the cell state (revealed or hidden). When revealing a cell, the method will:
+- draw a mine in the cell if it contains a mine;
+- display the number of mined neighbors if the cell does not contain a mine;
+- mark the cell as revealed in the model;
+- change the cell color.
+For convenience, we suggest adding the mine symbol to a separate constant. When the a cell be revealed? Correct!
+When you click on it with the left mouse button. To handle this click event, the engine has a special method: onMouseLeftClick(int, int).
+Let&#39;s override it in our class. It will call the method that reveals a cell.
+And, of course, run the program and enjoy the results of your work.
+
+
+Требования:
+1.	The MinesweeperGame class must have a private static final String MINE field that is initialized when it is declared. For example, you can use the UTF-16 symbol for a bomb: &quot;\uD83D\uDCA3&quot;.
+2.	The MinesweeperGame class must have a private void openTile(int x, int y) method.
+3.	The openTile(int, int) method must draw MINE if the gameObject at the passed coordinates is a mine. Use the setCellValue(int, int, String) method.
+4.	The openTile(int, int) method must draw the number of adjacent mines if the gameObject at the passed coordinates is not a mine. Use the setCellNumber(int, int, int) method.
+5.	The GameObject class must have a public boolean isOpen field.
+6.	The openTile(int, int) method should set the isOpen field on the gameField element equal to true and use the setCellColor(int, int, Color) method to draw the cell background. For example, using Color.GREEN.
+7.	The MinesweeperGame class must override the Game parent class&#39;s onMouseLeftClick(int, int) method.
+8.	The onMouseLeftClick(int, int) method must call the openTile(int, int) method.
+
+
+Minesweeper (Part 7/16)
 
 Now let&#39;s count the mines in adjacent cells. To do this, we&#39;ll add a field to each cell of the matrix,
 which will be responsible for the number of mined neighbors. First, we find all the neighbors,
@@ -9,15 +34,8 @@ and assign this value to the appropriate field of the cell.
 Although your work is not visible (you started program to see what happens, right?), it is very important to future steps.
 
 
-Требования:
-1.	The GameObject class must have a public int countMineNeighbors field.
-2.	The MinesweeperGame class must have a private void countMineNeighbors() method.
-3.	The countMineNeighbors() method should, for each non-mined cell in the gameField matrix, count the number of adjacent mined cells and assign this value to the countMineNeighbors field.
-4.	The countMineNeighbors() method should use the getNeighbors(GameObject gameObject) method.
-5.	In the createGame() method, after all the elements of the gameField matrix are created, the countMineNeighbors() method must be called.
 
-
-Minesweeper (Part 6/16)
+Minesweeper (Part 7/16)
 
 Minesweeper is aptly named. The player has to deal with mines, though maybe it would be best for the player to stay far away from them :)
 Let&#39;s add these mines to the game. To do this, we&#39;ll adapt the GameObject class to account
@@ -31,7 +49,7 @@ Once you&#39;ve done all that, run the program and check that nothing is broken 
 
 
 
-Minesweeper (Part 6/16)
+Minesweeper (Part 7/16)
 
 We need to store the state of the playing field&#39;s cells somewhere.
 To do this, create a matrix (two-dimensional array) with the dimensions of the playing field.
@@ -48,7 +66,7 @@ Hint: use loops to call the setCellColor(int, int, Color) method for each cell o
 
 
 
-Minesweeper (Part 6/16)
+Minesweeper (Part 7/16)
 
 Because our game will use game objects (cells), we&#39;ll create a separate GameObject class
 to describe them. Let&#39;s think about what the game object needs. Naturally, we need
@@ -57,7 +75,7 @@ don&#39;t forget to run the program and look at the result.
 
 
 
-Minesweeper (Part 6/16)
+Minesweeper (Part 7/16)
 
 Our playing field is kind of small, don&#39;t you think? It should be 9x9 cells:
 1) There is a setScreenSize(int, int) method to set the size of the field
@@ -68,31 +86,6 @@ Our playing field is kind of small, don&#39;t you think? It should be 9x9 cells:
 6) this means that the initialize() method must be declared in the MinesweeperGame class
 
 Check the results of your work &mdash; run the program.
-
-
-
-Minesweeper (Part 6/16)
-
-Let&#39;s write the entertaining Minesweeper game.
-Rules of the game:
-1.  The playing field is divided into adjacent cells (squares), some of which contain &quot;mines&quot;.
-2.  The objective of the game is to clear the field, i.e. reveal all cells that don&#39;t contain mines.
-3.  If a cell with a mine is revealed, the game is lost. The mines are placed randomly.
-4.  If a revealed cell doesn&#39;t have a mine, a number appears in it, indicating how many &quot;mined&quot; cells are adjacent to the
-revealed cell. You can use these numbers to calculate the location of mines.
-5.  If the adjacent cells also do not contain mines, an &quot;unmined&quot; region is revealed up to
-cells that do have numbers.
-6.  Cells that you believe to contain mines can be flagged so you don&#39;t accidentally reveal them. The number of flags is equal to
-the number of mines on the game board.
-7.  If &quot;unmined&quot; cells are revealed, then the game is won.
-
-Now let&#39;s start implementing the game:
-To begin, create a MinesweeperGame class, which will implement the logic of the game. This class must
-inherit the Game class, which is part of CodeGym&#39;s cool &quot;game engine&quot;.
-This and other engine classes are located in the com.codegym.engine.cell package. To use them,
-the MinesweeperGame class must include the following import statement:
-import com.codegym.engine.cell.*;
-If you did everything right, you will see the playing field when you start the application.
 
 
 
