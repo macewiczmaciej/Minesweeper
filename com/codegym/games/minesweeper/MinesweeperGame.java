@@ -11,6 +11,9 @@ public class MinesweeperGame extends Game {
     private static final String MINE = "\uD83D\uDCA3";
     private GameObject[][] gameField = new GameObject[SIDE][SIDE];
     private int countMinesOnField;
+    private static final String FLAG = "\uD83D\uDEA9";
+    private int countFlags;
+
 
     //initialize game
     @Override
@@ -31,6 +34,7 @@ public class MinesweeperGame extends Game {
                 setCellColor(x, y, Color.ORANGE);
             }
         }
+        countFlags = countMinesOnField;
         countMineNeighbors();
     }
 

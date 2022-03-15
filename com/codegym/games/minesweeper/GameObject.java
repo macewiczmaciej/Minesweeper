@@ -8,6 +8,7 @@ public class GameObject extends Game {
     public boolean isMine;
     public int countMineNeighbors;
     public boolean isOpen;
+    public boolean isFlag;
 
     GameObject(int x, int y, boolean isMine) {
         this.x = x;
