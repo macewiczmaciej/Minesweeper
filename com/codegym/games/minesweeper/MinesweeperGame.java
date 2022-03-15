@@ -1,26 +1,69 @@
 package com.codegym.games.minesweeper;
 
-import com.codegym.engine.cell.*;
+import com.codegym.engine.cell.Color;
+import com.codegym.engine.cell.Game;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MinesweeperGame extends Game {
     private static final int SIDE = 9;
     private GameObject[][] gameField = new GameObject[SIDE][SIDE];
-    private int countMinesOnField = 0;
+    private int countMinesOnField;
 
+    @Override
     public void initialize() {
         setScreenSize(SIDE, SIDE);
         createGame();
     }
 
     private void createGame() {
-        for (int i = 0; i < gameField.length; i++) {
-            for (int j = 0; j < gameField.length; j++) {
-                gameField[j][i] = new GameObject(i, j, getRandomNumber(10) < 1);
-                if (gameField[j][i].isMine) {
-                    countMinesOnField += 1;
+        for (int y = 0; y < SIDE; y++) {
+            for (int x = 0; x < SIDE; x++) {
+                boolean isMine = getRandomNumber(10) < 1;
+                if (isMine) {
+                    countMinesOnField++;
                 }
-                setCellColor(i, j, Color.ORANGE);
+                gameField[y][x] = new GameObject(x, y, isMine);
+                setCellColor(x, y, Color.ORANGE);
             }
         }
+        countMineNeighbors();
+    }
+
+    private List<GameObject> getNeighbors(GameObject gameObject) {
+        List<GameObject> result = new ArrayList<>();
+        for (int y = gameObject.y - 1; y <= gameObject.y + 1; y++) {
+            for (int x = gameObject.x - 1; x <= gameObject.x + 1; x++) {
+                if (y < 0 || y >= SIDE) {
+                    continue;
+                }
+                if (x < 0 || x >= SIDE) {
+                    continue;
+                }
+                if (gameField[y][x] == gameObject) {
+                    continue;
+                }
+                result.add(gameField[y][x]);
+            }
+        }
+        return result;
+    }
+
+    private void countMineNeighbors() {
+        for (int j = 0; j < SIDE; j++) {
+            for (int i = 0; i < SIDE; i++) {
+                GameObject gameObject = gameField[j][i];
+                if (gameObject.isMine == false) {
+                    List<GameObject> neighbors = getNeighbors(gameObject);
+                    for (GameObject n : neighbors) {
+                        if (n.isMine) {
+                            gameObject.countMineNeighbors++;
+                        }
+                    }
+                }
+            }
+        }
+
     }
 }
