@@ -1,4 +1,27 @@
-taskKey="com.codegym.games.minesweeper.part09"\n\nMinesweeper (Part 9/16)
+taskKey="com.codegym.games.minesweeper.part10"\n\nMinesweeper (Part 10/16)
+
+Now let&#39;s tackle the method responsible for flagging a cell. We&#39;ll call it markTile.
+It must:
+- mark a cell on the playing field with a flag, or remove a flag from a cell;
+- track the number of flags;
+- handle drawing and erasing flags on the playing field;
+- change the a cell&#39;s color if a flag is being set and restore the original color if a flag is being removed.
+You can set or remove a flag in the game by clicking the right mouse button. Therefore, in the MinesweeperGame class,
+you need to override the Game class&#39;s onMouseRightClick(int, int) method and call the markTile(int x, int y) method.
+Check that everything works &mdash; run the game.
+
+
+Требования:
+1.	The MinesweeperGame class must have a private void markTile(int, int) method.
+2.	The markTile(int x, int y) method must not do anything if the element is already revealed (isOpen == true).
+3.	The markTile(int, int) method must not do anything if the number of unused flags (countFlags) is zero and the current element is not a flag (isFlag = false).
+4.	The markTile(int, int) method must set the isFlag field to true, reduce the number of unused flags by one, draw the FLAG symbol on the field if the current element is not a flag (use the setCellValue(int, int, String) method), and change the cell background on the field (use the setCellColor(int, int, Color) method). For example, to Color.YELLOW.
+5.	The markTile(int, int) method must set the isFlag field to false, increase the number of unused flags by one, draw an empty cell on the field if the current element is a flag (use the setCellValue(int, int, String) method), and change the cell background on the field (use the setCellColor(int, int, Color) method).
+6.	The MinesweeperGame class must override the Game parent class&#39;s onMouseRightClick(int, int) method.
+7.	The onMouseRightClick(int, int) method must call the markTile(int, int) method.
+
+
+Minesweeper (Part 10/16)
 
 According to the rules, when a cell without adjacent mines is revealed,
 the game reveals the &quot;unmined&quot; area up to cells with mined
@@ -11,14 +34,8 @@ Run the game to verify that the implementation is correct.
 Hint: if you get a java.lang.StackOverflowError, it means that you&#39;re setting the isOpen flag too late.
 
 
-Требования:
-1.	In the openTile(int, int) method, if the element is not a mine and has no mined neighbors, the openTile(int, int) method must be called recursively on each neighbor that hasn&#39;t been revealed.
-2.	The openTile(int, int) method must call the getNeighbors(GameObject) method if the element is not a mine and has no mined neighbors.
-3.	In the openTile(int, int) method, if the element is not a mine and has at least one mined neighbor, the number of mined neighbors must be displayed on the playing field. Use the setCellNumber(int, int, int) method.
-4.	The openTile(int, int) method must not display anything if the element is not a mine and has no mined neighbors. Use an empty string.
 
-
-Minesweeper (Part 9/16)
+Minesweeper (Part 10/16)
 
 The rules of the game provide flags to help the player. They are needed to
 mark cells that might be mined. Accordingly, the number of flags (countFlags) must be equal to
@@ -28,7 +45,7 @@ isFlag field that will tell us whether a cell is flagged.
 
 
 
-Minesweeper (Part 9/16)
+Minesweeper (Part 10/16)
 
 At this stage, we&#39;ll deal with the logic to reveal cells. Let&#39;s create a corresponding method
 and a variable that will store the cell state (revealed or hidden). When revealing a cell, the method will:
@@ -43,7 +60,7 @@ And, of course, run the program and enjoy the results of your work.
 
 
 
-Minesweeper (Part 9/16)
+Minesweeper (Part 10/16)
 
 Now let&#39;s count the mines in adjacent cells. To do this, we&#39;ll add a field to each cell of the matrix,
 which will be responsible for the number of mined neighbors. First, we find all the neighbors,
@@ -55,7 +72,7 @@ Although your work is not visible (you started program to see what happens, righ
 
 
 
-Minesweeper (Part 9/16)
+Minesweeper (Part 10/16)
 
 Minesweeper is aptly named. The player has to deal with mines, though maybe it would be best for the player to stay far away from them :)
 Let&#39;s add these mines to the game. To do this, we&#39;ll adapt the GameObject class to account
@@ -66,23 +83,6 @@ to use the Game class&#39;s getRandomNumber(int n) method, which returns a rando
 0 to n-1 inclusive. Therefore, the probability of generating a certain number is 1/n.
 And don&#39;t forget to count the number of generated mines in the MinesweeperGame class.
 Once you&#39;ve done all that, run the program and check that nothing is broken :)
-
-
-
-Minesweeper (Part 9/16)
-
-We need to store the state of the playing field&#39;s cells somewhere.
-To do this, create a matrix (two-dimensional array) with the dimensions of the playing field.
-Populate the matrix with GameObject objects using this formula:
-gameField[y][x] = new GameObject(x, y);
-
-Now let&#39;s display all the cells on the screen.
-The Game class&#39;s setCellColor(int, int, Color) method, whose parameters are the cell coordinates and color, will help us accomplish this.
-Call it for each cell and pass the cell coordinates and any color (for example, Color.ORANGE) as arguments.
-We suggest putting the logic to draw the matrix into a separate createGame() method,
-which we then call from the initialize method(). Run the program and see what happens.
-
-Hint: use loops to call the setCellColor(int, int, Color) method for each cell of the matrix.
 
 
 
