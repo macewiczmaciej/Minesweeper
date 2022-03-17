@@ -1,4 +1,24 @@
-taskKey="com.codegym.games.minesweeper.part08"\n\nMinesweeper (Part 8/16)
+taskKey="com.codegym.games.minesweeper.part09"\n\nMinesweeper (Part 9/16)
+
+According to the rules, when a cell without adjacent mines is revealed,
+the game reveals the &quot;unmined&quot; area up to cells with mined
+neighbors. Let&#39;s implement it... I suggest using recursion. It is used
+when the algorithm for solving the problem is the same as the algorithm for solving part of the problem. Here&#39;s what we have.
+When a cell with zero mined neighbors is revealed, we need to do a full search of all
+neighboring cells that haven&#39;t been revealed, call openTile(int, int) method on them, and repeat the process.
+Additionally, in the openTile(int, int) method, we&#39;ll arrange to display the number of mined neighbors of a cell.
+Run the game to verify that the implementation is correct.
+Hint: if you get a java.lang.StackOverflowError, it means that you&#39;re setting the isOpen flag too late.
+
+
+Требования:
+1.	In the openTile(int, int) method, if the element is not a mine and has no mined neighbors, the openTile(int, int) method must be called recursively on each neighbor that hasn&#39;t been revealed.
+2.	The openTile(int, int) method must call the getNeighbors(GameObject) method if the element is not a mine and has no mined neighbors.
+3.	In the openTile(int, int) method, if the element is not a mine and has at least one mined neighbor, the number of mined neighbors must be displayed on the playing field. Use the setCellNumber(int, int, int) method.
+4.	The openTile(int, int) method must not display anything if the element is not a mine and has no mined neighbors. Use an empty string.
+
+
+Minesweeper (Part 9/16)
 
 The rules of the game provide flags to help the player. They are needed to
 mark cells that might be mined. Accordingly, the number of flags (countFlags) must be equal to
@@ -7,14 +27,8 @@ a constant to hold the symbol that represents them. Each cell in the model must 
 isFlag field that will tell us whether a cell is flagged.
 
 
-Требования:
-1.	The MinesweeperGame class must have a private static final String FLAG field that is initialized when it is declared. For example, you can use the UTF-16 symbol for a flag: &quot;\uD83D\uDEA9&quot;.
-2.	The MinesweeperGame class must have a private int countFlags field that stores the number of unused flags.
-3.	The createGame() method must set the countFlags field equal to countMinesOnField.
-4.	The GameObject class must have a public boolean isFlag field.
 
-
-Minesweeper (Part 8/16)
+Minesweeper (Part 9/16)
 
 At this stage, we&#39;ll deal with the logic to reveal cells. Let&#39;s create a corresponding method
 and a variable that will store the cell state (revealed or hidden). When revealing a cell, the method will:
@@ -29,7 +43,7 @@ And, of course, run the program and enjoy the results of your work.
 
 
 
-Minesweeper (Part 8/16)
+Minesweeper (Part 9/16)
 
 Now let&#39;s count the mines in adjacent cells. To do this, we&#39;ll add a field to each cell of the matrix,
 which will be responsible for the number of mined neighbors. First, we find all the neighbors,
@@ -41,7 +55,7 @@ Although your work is not visible (you started program to see what happens, righ
 
 
 
-Minesweeper (Part 8/16)
+Minesweeper (Part 9/16)
 
 Minesweeper is aptly named. The player has to deal with mines, though maybe it would be best for the player to stay far away from them :)
 Let&#39;s add these mines to the game. To do this, we&#39;ll adapt the GameObject class to account
@@ -55,7 +69,7 @@ Once you&#39;ve done all that, run the program and check that nothing is broken 
 
 
 
-Minesweeper (Part 8/16)
+Minesweeper (Part 9/16)
 
 We need to store the state of the playing field&#39;s cells somewhere.
 To do this, create a matrix (two-dimensional array) with the dimensions of the playing field.
@@ -69,15 +83,6 @@ We suggest putting the logic to draw the matrix into a separate createGame() met
 which we then call from the initialize method(). Run the program and see what happens.
 
 Hint: use loops to call the setCellColor(int, int, Color) method for each cell of the matrix.
-
-
-
-Minesweeper (Part 8/16)
-
-Because our game will use game objects (cells), we&#39;ll create a separate GameObject class
-to describe them. Let&#39;s think about what the game object needs. Naturally, we need
-its x and y coordinates on the playing field. And how can we get by without a constructor? After you do everything,
-don&#39;t forget to run the program and look at the result.
 
 
 

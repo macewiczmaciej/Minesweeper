@@ -79,15 +79,25 @@ public class MinesweeperGame extends Game {
     private void openTile(int x, int y) {
         GameObject gameObject = gameField[y][x];
 
-        if (!gameObject.isMine) {
-            setCellNumber(x, y, gameObject.countMineNeighbors);
-        } else {
-            setCellValue(x, y, MINE);
-        }
         //changing open status to true
-        gameObject.isOpen = true;
         setCellColor(x, y, Color.GREEN);
+        gameObject.isOpen = true;
+
+        if (gameObject.isMine) {
+            setCellValue(gameObject.x, gameObject.y, MINE);
+        } else if (gameObject.countMineNeighbors == 0) {
+            setCellValue(x,y,"");
+            List<GameObject> neighbors = getNeighbors(gameObject);
+            for (GameObject n : neighbors) {
+                if (!n.isOpen) {
+                    openTile(n.x, n.y);
+                }
+            }
+        } else {
+            setCellNumber(x, y, gameObject.countMineNeighbors);
+        }
     }
+
 
     @Override
     public void onMouseLeftClick(int x, int y) {
