@@ -1,4 +1,17 @@
-taskKey="com.codegym.games.minesweeper.part11"\n\nMinesweeper (Part 11/16)
+taskKey="com.codegym.games.minesweeper.part12"\n\nMinesweeper (Part 12/16)
+
+A cell can be revealed only once. If a cell is flagged, it must not be revealed.
+And, of course, cells shouldn&#39;t be revealed after the game has stopped. Account for all of these points
+in the openTile(int, int) method. Now you need to be sure that everything works correctly &mdash; start the game and check.
+
+
+Требования:
+1.	The openTile(int, int) method must not do anything if the element is already revealed.
+2.	The openTile(int, int) method must not do anything if the element is flagged.
+3.	The openTile(int, int) method must not do anything if the game is stopped (isGameStopped == true).
+
+
+Minesweeper (Part 12/16)
 
 In almost any game, the player either wins or loses. Let&#39;s first implement the logic for losing.
 To do this, we need a gameOver() method that will stop the game and inform the player about the loss.
@@ -10,17 +23,8 @@ Don&#39;t forget to check whether the game has stopped in the markTile(int, int)
 implemented works.
 
 
-Требования:
-1.	There must be a private boolean isGameStopped variable in the MinesweeperGame class.
-2.	The createGame() method must set the isGameStopped variable to false.
-3.	The MinesweeperGame class must have a private void gameOver() method.
-4.	The gameOver() method must set the isGameStopped variable to true.
-5.	The gameOver() method must call the showMessageDialog(Color, String, Color, int) method.
-6.	In the openTile(int, int) method, if the element is a mine, you must draw a mine on a red background (use the setCellValueEx(int, int, Color, String) method) and call the gameOver() method.
-7.	The markTile(int, int) method must not do anything if the game is already stopped (isGameStopped == true).
 
-
-Minesweeper (Part 11/16)
+Minesweeper (Part 12/16)
 
 Now let&#39;s tackle the method responsible for flagging a cell. We&#39;ll call it markTile.
 It must:
@@ -34,7 +38,7 @@ Check that everything works &mdash; run the game.
 
 
 
-Minesweeper (Part 11/16)
+Minesweeper (Part 12/16)
 
 According to the rules, when a cell without adjacent mines is revealed,
 the game reveals the &quot;unmined&quot; area up to cells with mined
@@ -48,7 +52,7 @@ Hint: if you get a java.lang.StackOverflowError, it means that you&#39;re settin
 
 
 
-Minesweeper (Part 11/16)
+Minesweeper (Part 12/16)
 
 The rules of the game provide flags to help the player. They are needed to
 mark cells that might be mined. Accordingly, the number of flags (countFlags) must be equal to
@@ -58,7 +62,7 @@ isFlag field that will tell us whether a cell is flagged.
 
 
 
-Minesweeper (Part 11/16)
+Minesweeper (Part 12/16)
 
 At this stage, we&#39;ll deal with the logic to reveal cells. Let&#39;s create a corresponding method
 and a variable that will store the cell state (revealed or hidden). When revealing a cell, the method will:
@@ -70,18 +74,6 @@ For convenience, we suggest adding the mine symbol to a separate constant. When 
 When you click on it with the left mouse button. To handle this click event, the engine has a special method: onMouseLeftClick(int, int).
 Let&#39;s override it in our class. It will call the method that reveals a cell.
 And, of course, run the program and enjoy the results of your work.
-
-
-
-Minesweeper (Part 11/16)
-
-Now let&#39;s count the mines in adjacent cells. To do this, we&#39;ll add a field to each cell of the matrix,
-which will be responsible for the number of mined neighbors. First, we find all the neighbors,
-and then we count how many of them are mined.
-To get the list of neighbors, you now have the getNeighbors() method, which has one GameObject (cell) parameter.
-Your task is to, in a separate method, count the number of mined neighbors for each cell in gameField
-and assign this value to the appropriate field of the cell.
-Although your work is not visible (you started program to see what happens, right?), it is very important to future steps.
 
 
 
