@@ -1,4 +1,25 @@
-taskKey="com.codegym.games.minesweeper.part14"\n\nMinesweeper (Part 14/16)
+taskKey="com.codegym.games.minesweeper.part15"\n\nMinesweeper (Part 15/16)
+
+As you know, a real minesweeper is mistaken only once. But, fortunately, we can make lots of mistakes in our game.
+Let&#39;s implement a way to restart the game. To do this, we&#39;ll create a restart() method, where we will start
+the game, and reset the number of hidden cells, mines, and
+points. Don&#39;t forget to update the score on the playing field and call the method responsible for creating a game.
+In the restart method(), you also need to clear the flags, mines, numbers, etc. from the playing field. We&#39;ll restart the game
+by clicking the left mouse button.
+
+
+Требования:
+1.	The MinesweeperGame class must have a private void restart() method.
+2.	The restart() method must assign false to the isGameStopped field.
+3.	The isGameStopped field must not be assigned in the createGame() method.
+4.	The restart() method must restore the initial values of the countClosedTiles, score, and countMinesOnField fields.
+5.	The restart() method must call the setScore(int) method.
+6.	The restart() method must call the createGame() method after setting the initial values of the countClosedTiles, score and countMinesOnField fields.
+7.	The createGame() method must clear all items (flags, mines, numbers) from the playing field. Use the setCellValue(int, int, String) method. Pass an empty string as the last argument.
+8.	The onMouseLeftClick(int, int) method must call the restart() method and do nothing if the game is stopped.
+
+
+Minesweeper (Part 15/16)
 
 Admit it &mdash; It&#39;s not very interesting to play without a score. Let&#39;s add this functionality to our game. We will need a variable
 to track points. When an unmined cell is revealed, the score increases by 5 points.
@@ -8,13 +29,8 @@ otherwise the wrong result will be shown.
 Run the game and try to get the maximum number of points.
 
 
-Требования:
-1.	There must be a private int score variable in the MinesweeperGame class.
-2.	In the openTile(int, int) method, the score field must increase by 5 if the gameField element&#39;s isOpen flag is set and the element is not a mine.
-3.	The openTile(int, int) method must call the setScore(int) method using the score field.
 
-
-Minesweeper (Part 14/16)
+Minesweeper (Part 15/16)
 
 The game is won when the number of remaining hidden cells is equal to the number of mines. To count the number
 of hidden cells, we&#39;ll introduce another variable whose initial value is equal to the total number of cells on the
@@ -29,7 +45,7 @@ However, if the last revealed cell is a mine, then the method must not be called
 
 
 
-Minesweeper (Part 14/16)
+Minesweeper (Part 15/16)
 
 A cell can be revealed only once. If a cell is flagged, it must not be revealed.
 And, of course, cells shouldn&#39;t be revealed after the game has stopped. Account for all of these points
@@ -37,7 +53,7 @@ in the openTile(int, int) method. Now you need to be sure that everything works 
 
 
 
-Minesweeper (Part 14/16)
+Minesweeper (Part 15/16)
 
 In almost any game, the player either wins or loses. Let&#39;s first implement the logic for losing.
 To do this, we need a gameOver() method that will stop the game and inform the player about the loss.
@@ -50,7 +66,7 @@ implemented works.
 
 
 
-Minesweeper (Part 14/16)
+Minesweeper (Part 15/16)
 
 Now let&#39;s tackle the method responsible for flagging a cell. We&#39;ll call it markTile.
 It must:
@@ -61,20 +77,6 @@ It must:
 You can set or remove a flag in the game by clicking the right mouse button. Therefore, in the MinesweeperGame class,
 you need to override the Game class&#39;s onMouseRightClick(int, int) method and call the markTile(int x, int y) method.
 Check that everything works &mdash; run the game.
-
-
-
-Minesweeper (Part 14/16)
-
-According to the rules, when a cell without adjacent mines is revealed,
-the game reveals the &quot;unmined&quot; area up to cells with mined
-neighbors. Let&#39;s implement it... I suggest using recursion. It is used
-when the algorithm for solving the problem is the same as the algorithm for solving part of the problem. Here&#39;s what we have.
-When a cell with zero mined neighbors is revealed, we need to do a full search of all
-neighboring cells that haven&#39;t been revealed, call openTile(int, int) method on them, and repeat the process.
-Additionally, in the openTile(int, int) method, we&#39;ll arrange to display the number of mined neighbors of a cell.
-Run the game to verify that the implementation is correct.
-Hint: if you get a java.lang.StackOverflowError, it means that you&#39;re setting the isOpen flag too late.
 
 
 
