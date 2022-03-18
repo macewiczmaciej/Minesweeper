@@ -1,4 +1,20 @@
-taskKey="com.codegym.games.minesweeper.part13"\n\nMinesweeper (Part 13/16)
+taskKey="com.codegym.games.minesweeper.part14"\n\nMinesweeper (Part 14/16)
+
+Admit it &mdash; It&#39;s not very interesting to play without a score. Let&#39;s add this functionality to our game. We will need a variable
+to track points. When an unmined cell is revealed, the score increases by 5 points.
+To display the score on the playing field, we need to use the Game class&#39;s setScore() method,
+to which we will pass the total number of points. Note that you need to call this method after increasing the score &mdash;
+otherwise the wrong result will be shown.
+Run the game and try to get the maximum number of points.
+
+
+Требования:
+1.	There must be a private int score variable in the MinesweeperGame class.
+2.	In the openTile(int, int) method, the score field must increase by 5 if the gameField element&#39;s isOpen flag is set and the element is not a mine.
+3.	The openTile(int, int) method must call the setScore(int) method using the score field.
+
+
+Minesweeper (Part 14/16)
 
 The game is won when the number of remaining hidden cells is equal to the number of mines. To count the number
 of hidden cells, we&#39;ll introduce another variable whose initial value is equal to the total number of cells on the
@@ -12,16 +28,8 @@ Note that the win() method is called if the number of hidden cells is equal to t
 However, if the last revealed cell is a mine, then the method must not be called.
 
 
-Требования:
-1.	The MinesweeperGame class must have a private int countClosedTiles field that is initialized to SIDE * SIDE when it is declared.
-2.	The openTile(int, int) method must decrease the countClosedTiles field by 1 if the gameField element&#39;s isOpen flag is set.
-3.	The MinesweeperGame class must have a private void win() method.
-4.	The win() method must set the isGameStopped variable to true.
-5.	The win() method must call the showMessageDialog(Color, String, Color, int) method.
-6.	The openTile(int, int) method must call the win() method if the number of hidden cells is equal to the number of mines on the field and the last revealed cell is not a mine.
 
-
-Minesweeper (Part 13/16)
+Minesweeper (Part 14/16)
 
 A cell can be revealed only once. If a cell is flagged, it must not be revealed.
 And, of course, cells shouldn&#39;t be revealed after the game has stopped. Account for all of these points
@@ -29,7 +37,7 @@ in the openTile(int, int) method. Now you need to be sure that everything works 
 
 
 
-Minesweeper (Part 13/16)
+Minesweeper (Part 14/16)
 
 In almost any game, the player either wins or loses. Let&#39;s first implement the logic for losing.
 To do this, we need a gameOver() method that will stop the game and inform the player about the loss.
@@ -42,7 +50,7 @@ implemented works.
 
 
 
-Minesweeper (Part 13/16)
+Minesweeper (Part 14/16)
 
 Now let&#39;s tackle the method responsible for flagging a cell. We&#39;ll call it markTile.
 It must:
@@ -56,7 +64,7 @@ Check that everything works &mdash; run the game.
 
 
 
-Minesweeper (Part 13/16)
+Minesweeper (Part 14/16)
 
 According to the rules, when a cell without adjacent mines is revealed,
 the game reveals the &quot;unmined&quot; area up to cells with mined
@@ -67,16 +75,6 @@ neighboring cells that haven&#39;t been revealed, call openTile(int, int) method
 Additionally, in the openTile(int, int) method, we&#39;ll arrange to display the number of mined neighbors of a cell.
 Run the game to verify that the implementation is correct.
 Hint: if you get a java.lang.StackOverflowError, it means that you&#39;re setting the isOpen flag too late.
-
-
-
-Minesweeper (Part 13/16)
-
-The rules of the game provide flags to help the player. They are needed to
-mark cells that might be mined. Accordingly, the number of flags (countFlags) must be equal to
-the number of mines (countMinesOnField). You need to show flags somehow on the playing field. To do this, we&#39;ll create
-a constant to hold the symbol that represents them. Each cell in the model must have an
-isFlag field that will tell us whether a cell is flagged.
 
 
 
