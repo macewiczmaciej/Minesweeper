@@ -13,6 +13,7 @@ public class MinesweeperGame extends Game {
     private int countMinesOnField;
     private static final String FLAG = "\uD83D\uDEA9";
     private int countFlags;
+    private boolean isGameStopped;
 
 
     //initialize game
@@ -24,6 +25,7 @@ public class MinesweeperGame extends Game {
 
     //create game
     private void createGame() {
+        isGameStopped = false;
         for (int y = 0; y < SIDE; y++) {
             for (int x = 0; x < SIDE; x++) {
                 boolean isMine = getRandomNumber(10) < 1;
@@ -79,41 +81,50 @@ public class MinesweeperGame extends Game {
     private void openTile(int x, int y) {
         GameObject gameObject = gameField[y][x];
 
-        //changing open status to true
-        setCellColor(x, y, Color.GREEN);
-        gameObject.isOpen = true;
+        if (!isGameStopped) {
+            //changing open status to true
+            setCellColor(x, y, Color.GREEN);
+            gameObject.isOpen = true;
 
-        if (gameObject.isMine) {
-            setCellValue(gameObject.x, gameObject.y, MINE);
-        } else if (gameObject.countMineNeighbors == 0) {
-            setCellValue(x, y, "");
-            List<GameObject> neighbors = getNeighbors(gameObject);
-            for (GameObject n : neighbors) {
-                if (!n.isOpen) {
-                    openTile(n.x, n.y);
+            if (gameObject.isMine) {
+                setCellValueEx(x, y, Color.RED, MINE);
+                gameOver();
+            } else if (gameObject.countMineNeighbors == 0) {
+                setCellValue(x, y, "");
+                List<GameObject> neighbors = getNeighbors(gameObject);
+                for (GameObject n : neighbors) {
+                    if (!n.isOpen) {
+                        openTile(n.x, n.y);
+                    }
                 }
+            } else {
+                setCellNumber(x, y, gameObject.countMineNeighbors);
+
             }
-        } else {
-            setCellNumber(x, y, gameObject.countMineNeighbors);
         }
     }
 
     private void markTile(int x, int y) {
-        GameObject gameObject = gameField[y][x];
-        if (gameObject.isFlag) {
-            setCellColor(x, y, Color.ORANGE);
-            setCellValue(x, y, "");
-            gameObject.isFlag = false;
-            countFlags++;
-        } else if (!gameObject.isOpen & countFlags > 0) {
-            gameObject.isFlag = true;
-            setCellColor(x, y, Color.YELLOW);
-            setCellValue(x, y, FLAG);
-            countFlags--;
+        if (!isGameStopped) {
+            GameObject gameObject = gameField[y][x];
+            if (gameObject.isFlag) {
+                setCellColor(x, y, Color.ORANGE);
+                setCellValue(x, y, "");
+                gameObject.isFlag = false;
+                countFlags++;
+            } else if (!gameObject.isOpen & countFlags > 0) {
+                gameObject.isFlag = true;
+                setCellColor(x, y, Color.YELLOW);
+                setCellValue(x, y, FLAG);
+                countFlags--;
+            }
         }
-
     }
 
+    private void gameOver() {
+        isGameStopped = true;
+        showMessageDialog(Color.RED, "GAME OVER", Color.WHITE, 40);
+    }
 
     @Override
     public void onMouseLeftClick(int x, int y) {
