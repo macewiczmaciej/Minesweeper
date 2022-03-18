@@ -1,17 +1,35 @@
-taskKey="com.codegym.games.minesweeper.part12"\n\nMinesweeper (Part 12/16)
+taskKey="com.codegym.games.minesweeper.part13"\n\nMinesweeper (Part 13/16)
+
+The game is won when the number of remaining hidden cells is equal to the number of mines. To count the number
+of hidden cells, we&#39;ll introduce another variable whose initial value is equal to the total number of cells on the
+playing field. The value of this variable will decrease as the cells are revealed. When it becomes equal to the
+number of mines, the game is won.
+In the event of a win, our game currently does nothing, but it should. It&#39;s time to fix that.
+Let&#39;s write a win() method that stops the game and displays a beautiful congratulatory message to the winner.
+
+Run the game and check that the win() method is run when the player wins.
+Note that the win() method is called if the number of hidden cells is equal to the number of mines on the field.
+However, if the last revealed cell is a mine, then the method must not be called.
+
+
+Требования:
+1.	The MinesweeperGame class must have a private int countClosedTiles field that is initialized to SIDE * SIDE when it is declared.
+2.	The openTile(int, int) method must decrease the countClosedTiles field by 1 if the gameField element&#39;s isOpen flag is set.
+3.	The MinesweeperGame class must have a private void win() method.
+4.	The win() method must set the isGameStopped variable to true.
+5.	The win() method must call the showMessageDialog(Color, String, Color, int) method.
+6.	The openTile(int, int) method must call the win() method if the number of hidden cells is equal to the number of mines on the field and the last revealed cell is not a mine.
+
+
+Minesweeper (Part 13/16)
 
 A cell can be revealed only once. If a cell is flagged, it must not be revealed.
 And, of course, cells shouldn&#39;t be revealed after the game has stopped. Account for all of these points
 in the openTile(int, int) method. Now you need to be sure that everything works correctly &mdash; start the game and check.
 
 
-Требования:
-1.	The openTile(int, int) method must not do anything if the element is already revealed.
-2.	The openTile(int, int) method must not do anything if the element is flagged.
-3.	The openTile(int, int) method must not do anything if the game is stopped (isGameStopped == true).
 
-
-Minesweeper (Part 12/16)
+Minesweeper (Part 13/16)
 
 In almost any game, the player either wins or loses. Let&#39;s first implement the logic for losing.
 To do this, we need a gameOver() method that will stop the game and inform the player about the loss.
@@ -24,7 +42,7 @@ implemented works.
 
 
 
-Minesweeper (Part 12/16)
+Minesweeper (Part 13/16)
 
 Now let&#39;s tackle the method responsible for flagging a cell. We&#39;ll call it markTile.
 It must:
@@ -38,7 +56,7 @@ Check that everything works &mdash; run the game.
 
 
 
-Minesweeper (Part 12/16)
+Minesweeper (Part 13/16)
 
 According to the rules, when a cell without adjacent mines is revealed,
 the game reveals the &quot;unmined&quot; area up to cells with mined
@@ -52,28 +70,13 @@ Hint: if you get a java.lang.StackOverflowError, it means that you&#39;re settin
 
 
 
-Minesweeper (Part 12/16)
+Minesweeper (Part 13/16)
 
 The rules of the game provide flags to help the player. They are needed to
 mark cells that might be mined. Accordingly, the number of flags (countFlags) must be equal to
 the number of mines (countMinesOnField). You need to show flags somehow on the playing field. To do this, we&#39;ll create
 a constant to hold the symbol that represents them. Each cell in the model must have an
 isFlag field that will tell us whether a cell is flagged.
-
-
-
-Minesweeper (Part 12/16)
-
-At this stage, we&#39;ll deal with the logic to reveal cells. Let&#39;s create a corresponding method
-and a variable that will store the cell state (revealed or hidden). When revealing a cell, the method will:
-- draw a mine in the cell if it contains a mine;
-- display the number of mined neighbors if the cell does not contain a mine;
-- mark the cell as revealed in the model;
-- change the cell color.
-For convenience, we suggest adding the mine symbol to a separate constant. When the a cell be revealed? Correct!
-When you click on it with the left mouse button. To handle this click event, the engine has a special method: onMouseLeftClick(int, int).
-Let&#39;s override it in our class. It will call the method that reveals a cell.
-And, of course, run the program and enjoy the results of your work.
 
 
 
